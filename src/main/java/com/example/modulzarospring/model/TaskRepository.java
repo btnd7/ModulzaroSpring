@@ -1,4 +1,4 @@
-package model;
+package com.example.modulzarospring.model;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

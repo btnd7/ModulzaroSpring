@@ -1,7 +1,8 @@
-package controller;
+package com.example.modulzarospring.controller;
 
-import model.Task;
-import model.TaskRepository;
+import com.example.modulzarospring.model.Task;
+import com.example.modulzarospring.model.TaskRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +18,14 @@ public class TaskController {
     @Autowired
     private TaskRepository taskRepository;
 
-    @GetMapping
-    public List<TaskUserDto> getAllTasks() {
-        List<Task> tasks = taskRepository.findAll();
-        return tasks.stream().map(task -> new TaskUserDto(task, task.getUser().getName())).collect(Collectors.toList());
+    @GetMapping("/{id}")
+    public TaskUserDto getAllTasks(@PathVariable Long id) {
+        Optional<Task> optionalTask = taskRepository.findById(id);
+        if (optionalTask.isPresent()) {
+            Task t = optionalTask.get();
+            return new TaskUserDto(t) ;
+        }
+        throw new EntityNotFoundException();
     }
 
     @DeleteMapping("/{id}")
@@ -35,4 +40,3 @@ public class TaskController {
         }
     }
 }
-

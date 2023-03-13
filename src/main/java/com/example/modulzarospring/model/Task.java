@@ -1,4 +1,4 @@
-package model;
+package com.example.modulzarospring.model;
 
 import jakarta.persistence.*;
 import org.springframework.data.annotation.Id;
@@ -47,4 +47,3 @@ public class Task {
         return user;
     }
 }
-
